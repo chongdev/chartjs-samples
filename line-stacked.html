@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chart.js Samples</title>
+    
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+    <!-- <script async="" src="//www.google-analytics.com/analytics.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.js"></script>
+	<script src="utils.js"></script>
+	<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+    </style>
+    
+<style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
+</style>
+
+</head>
+
+<body>
+    <div style="width:75%;">
+        
+		<canvas id="canvas" width="1076" height="338"></canvas>
+	</div>
+	<br>
+	<br>
+	<!-- <button id="randomizeData">Randomize Data</button>
+	<button id="addDataset">Add Dataset</button>
+	<button id="removeDataset">Remove Dataset</button>
+	<button id="addData">Add Data</button>
+	<button id="removeData">Remove Data</button> -->
+
+<script>
+
+    function addCommas(nStr)
+    {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+
+		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		var config = {
+            
+			type: 'line',
+			data: {
+				labels: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+				datasets: [
+                    
+                {
+                   
+					label: '2017',
+                    borderWidth: 1,
+                    backgroundColor:"rgba(255, 185, 53,.1)",
+                    borderColor:"rgb(255, 185, 53)",
+                    pointBorderColor:"rgb(255, 185, 53)",
+                    pointBackgroundColor:"rgb(255, 185, 53)",
+                    data:[0,0,0,0,0,0,12765618,10004111,16054326,10496351,22835179,35584176],
+                    // fill: false,
+                }, 
+                {
+                   
+					label: '2018',
+                    borderWidth: 1,
+                    backgroundColor:"rgba(95, 186, 125,.1)",
+                    borderColor:"rgb(95, 186, 125)",
+                    pointBorderColor:"rgb(95, 186, 125)",
+                    pointBackgroundColor:"rgb(95, 186, 125)",
+                    data:[64731554,113700032,86087421,55342478,40642135,31643841,23702245,22574891,46480316,62119368,83397495,71352887],
+                    // fill: false,
+                }, 
+
+                {
+                    label: '2019',   
+                    borderWidth:1,
+                    backgroundColor:"rgba(94,114,228,.1)",
+                    borderColor:"rgb(94,114,228)",
+                    pointBorderColor:"rgb(94,114,228)",
+                    pointBackgroundColor:"rgb(94,114,228)",
+                    data:[83026083,78105033,75116834,73146763,34542508,35996508,38055915,34822531,51057028,87421837,124832964,112934355],
+                    // fill: false,
+                }, 
+                {
+                    label: '2020',   
+                    borderWidth:1,
+                    backgroundColor:"rgba(220, 53, 69,.1)",
+                    borderColor:"rgb(220, 53, 69)",
+                    pointBorderColor:"rgb(220, 53, 69)",
+                    pointBackgroundColor:"rgb(220, 53, 69)",
+                    data:[0,0,0,0,0,0,0,0,0,0,0,0],
+                    // fill: false,
+                }, 
+                
+                
+            
+            ]},
+			options: {
+                // bodyAlign: 'right',
+				responsive: true,
+				title: {
+					display: false,
+					text: 'Chart.js Line Chart - Stacked Area'
+				},
+				// tooltips: {
+				// 	mode: 'index',
+                //     intersect: false,
+                    
+                //     callbacks: {
+                //         label: function(tooltipItem, chart){
+                //             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                //             return datasetLabel + ': ฿ ' + addCommas(tooltipItem.yLabel, 2);
+                //         }
+                //     }
+                // },
+                tooltips: {
+                    enabled: false,
+                    
+                },
+				hover: {
+                    animationDuration: 0,
+					mode: 'nearest',
+					intersect: false
+				},
+				scales: {
+                    xAxes: [{
+						display: true,
+                        gridLines:{display:!1,drawBorder:!1},
+                        // ticks:{display:!1},
+						// scaleLabel: {
+						// 	display: false,
+						// 	labelString: 'Month'
+						// }
+					}],
+					yAxes: [{
+                        display: true,
+                        // gridLines:{display:!1,drawBorder:!1},
+						// scaleLabel: {
+						// 	display: true,
+						// 	labelString: 'Value'
+                        // },
+                        ticks: {
+                            callback: function(label, index, labels) {
+                                return addCommas(label/1000000)+'M';
+                            }
+                        },
+                    }]
+                },
+                // legend:{
+                //     display:true,
+                //     labels:{
+                //         fontColor: '#000'
+                //     }
+                // },
+
+                events: false,
+                animation: {
+                    duration: 1,
+
+                    onComplete: function () {
+                        var chartInstance = this.chart,
+                            ctx = chartInstance.ctx;
+
+                        
+                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+
+                        
+                        ctx.fillStyle = "#000";
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+
+                        this.data.datasets.forEach(function (dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+
+                            meta.data.forEach(function (bar, index) {
+
+                                var data = dataset.data[index];    
+
+                                ctx.fillText( '฿ ' + addCommas(data, 2) , bar._model.x, bar._model.y - 5);
+                            });
+                        });
+                    }
+                    
+                    // onProgress: function(animation) {
+                    //     progress.value = animation.animationObject.currentStep / animation.animationObject.numSteps;
+                    // }
+                }
+                //     function () {
+                //     var ctx = this.chart.ctx;
+                //     ctx.font = this.scale.font;
+                //     ctx.fillStyle = this.scale.textColor
+                //     ctx.textAlign = "center";
+                //     ctx.textBaseline = "bottom";
+
+                //     this.datasets.forEach(function (dataset) {
+                //         dataset.bars.forEach(function (bar) {
+                //             ctx.fillText(bar.value, bar.x, bar.y - 5);
+                //         });
+                //     })
+                // }
+            }
+            
+		};
+
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+		// document.getElementById('randomizeData').addEventListener('click', function() {
+		// 	config.data.datasets.forEach(function(dataset) {
+		// 		dataset.data = dataset.data.map(function() {
+		// 			return randomScalingFactor();
+		// 		});
+
+		// 	});
+
+		// 	window.myLine.update();
+		// });
+
+		// var colorNames = Object.keys(window.chartColors);
+		// document.getElementById('addDataset').addEventListener('click', function() {
+		// 	var colorName = colorNames[config.data.datasets.length % colorNames.length];
+		// 	var newColor = window.chartColors[colorName];
+		// 	var newDataset = {
+		// 		label: 'Dataset ' + config.data.datasets.length,
+		// 		borderColor: newColor,
+		// 		backgroundColor: newColor,
+		// 		data: [],
+		// 	};
+
+		// 	for (var index = 0; index < config.data.labels.length; ++index) {
+		// 		newDataset.data.push(randomScalingFactor());
+		// 	}
+
+		// 	config.data.datasets.push(newDataset);
+		// 	window.myLine.update();
+		// });
+
+		// document.getElementById('addData').addEventListener('click', function() {
+		// 	if (config.data.datasets.length > 0) {
+		// 		var month = MONTHS[config.data.labels.length % MONTHS.length];
+		// 		config.data.labels.push(month);
+
+		// 		config.data.datasets.forEach(function(dataset) {
+		// 			dataset.data.push(randomScalingFactor());
+		// 		});
+
+		// 		window.myLine.update();
+		// 	}
+		// });
+
+		// document.getElementById('removeDataset').addEventListener('click', function() {
+		// 	config.data.datasets.splice(0, 1);
+		// 	window.myLine.update();
+		// });
+
+		// document.getElementById('removeData').addEventListener('click', function() {
+		// 	config.data.labels.splice(-1, 1); // remove the label first
+
+		// 	config.data.datasets.forEach(function(dataset) {
+		// 		dataset.data.pop();
+		// 	});
+
+		// 	window.myLine.update();
+		// });
+	</script>
+
+
+
+</body></html>

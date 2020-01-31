@@ -1,0 +1,10 @@
+/node_modules
+/upload
+/upload/*
+/public/storage
+/storage/*.key
+note.txt
+.env
+
+composer.phar
+/vendor/
