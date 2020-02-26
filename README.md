@@ -1,4 +1,4 @@
-# Chartjs Samples
+# Chartjs Samples By Chong
 
 ## Installation
 - Chart.js can be installed via npm or bower. It is recommended to get Chart.js this way. 
